@@ -14,7 +14,8 @@
 		"nodejs_compat"
 	],
 	"assets": {
-		"directory": "public"
+		"directory": "public",
+		"binding": "ASSETS"
 	}
 	/**
 	 * Smart Placement
