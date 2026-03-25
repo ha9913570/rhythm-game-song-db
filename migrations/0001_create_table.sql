@@ -1,9 +1,4 @@
 -- Migration number: 0001 	 2026-03-25T04:26:00.779Z
--- 古いテーブルがあれば削除
-DROP TABLE IF EXISTS Song;
-DROP TABLE IF EXISTS Composer;
-DROP TABLE IF EXISTS Chapter;
-DROP TABLE IF EXISTS Chart;
 
 -- テーブル作成
 CREATE TABLE IF NOT EXISTS Song (
@@ -19,11 +14,11 @@ CREATE TABLE IF NOT EXISTS Song (
 );
 CREATE TABLE IF NOT EXISTS Composer (
 	ComposerId		INTEGER PRIMARY KEY AUTOINCREMENT,
-	ComposerName	TEXT NOT NULL
+	ComposerName	TEXT NOT NULL UNIQUE
 );
 CREATE TABLE IF NOT EXISTS Chapter (
 	ChapterId		INTEGER PRIMARY KEY AUTOINCREMENT,
-	ChapterName		TEXT NOT NULL
+	ChapterName		TEXT NOT NULL UNIQUE
 );
 CREATE TABLE IF NOT EXISTS Chart (
 	ChartId			INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,8 +34,3 @@ CREATE TABLE IF NOT EXISTS Chart (
 	FOREIGN KEY (SongId) REFERENCES Song(SongId)
 );
 
--- 初期データ挿入
-INSERT INTO Composer (ComposerName) VALUES ("test composer");
-INSERT INTO Chapter (ChapterName) VALUES ("test chapter");
-INSERT INTO Song (SongName, ComposerId, Bpm, SongLength, AddVersion, ChapterId) VALUES ("test song", 1, 120, 180, "0.0.0", 1);
-INSERT INTO Chart (SongId, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT) VALUES (1, 2, 5, 10, NULL, 100, 450, 960, NULL);
