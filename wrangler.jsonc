@@ -16,7 +16,14 @@
 	"assets": {
 		"directory": "public",
 		"binding": "ASSETS"
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "phigros_song_db",
+			"database_name": "phigros-song-db",
+			"database_id": "80436971-7426-4588-9652-d9380c4ff253",
+		}
+	]
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

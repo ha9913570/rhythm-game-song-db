@@ -1,0 +1,46 @@
+-- Migration number: 0001 	 2026-03-25T04:26:00.779Z
+-- 古いテーブルがあれば削除
+DROP TABLE IF EXISTS Song;
+DROP TABLE IF EXISTS Composer;
+DROP TABLE IF EXISTS Chapter;
+DROP TABLE IF EXISTS Chart;
+
+-- テーブル作成
+CREATE TABLE IF NOT EXISTS Song (
+	SongId			INTEGER PRIMARY KEY AUTOINCREMENT,
+	SongName		TEXT NOT NULL,
+	ComposerId		INTEGER NOT NULL,
+	Bpm				INTEGER NOT NULL,
+	SongLength		INTEGER NOT NULL,
+	AddVersion		TEXT NOT NULL,
+	ChapterId		INTEGER NOT NULL,
+	FOREIGN KEY (ComposerId) REFERENCES Composer(ComposerId),
+	FOREIGN KEY (ChapterId) REFERENCES Chapter(ChapterId)
+);
+CREATE TABLE IF NOT EXISTS Composer (
+	ComposerId		INTEGER PRIMARY KEY AUTOINCREMENT,
+	ComposerName	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS Chapter (
+	ChapterId		INTEGER PRIMARY KEY AUTOINCREMENT,
+	ChapterName		TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS Chart (
+	ChartId			INTEGER PRIMARY KEY AUTOINCREMENT,
+	SongId			INTEGER NOT NULL,
+	DiffEZ			INTEGER NOT NULL,
+	DiffHD			INTEGER NOT NULL,
+	DiffIN			INTEGER NOT NULL,
+	DiffAT			INTEGER,
+	NoteEZ			INTEGER NOT NULL,
+	NoteHD			INTEGER NOT NULL,
+	NoteIN			INTEGER NOT NULL,
+	NoteAT			INTEGER,
+	FOREIGN KEY (SongId) REFERENCES Song(SongId)
+);
+
+-- 初期データ挿入
+INSERT INTO Composer (ComposerName) VALUES ("test composer");
+INSERT INTO Chapter (ChapterName) VALUES ("test chapter");
+INSERT INTO Song (SongName, ComposerId, Bpm, SongLength, AddVersion, ChapterId) VALUES ("test song", 1, 120, 180, "0.0.0", 1);
+INSERT INTO Chart (SongId, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT) VALUES (1, 2, 5, 10, NULL, 100, 450, 960, NULL);
