@@ -6,15 +6,18 @@
 
 	<body>
 		<h1>Hello World</h1>
+
+		<div id="db"></div>
 		
 		<script>
-			async function getTestMessage() {
-				const response = await fetch("/api/test-message");
-				const text = response.text();
-				console.log(text);
+			async function getDataFromDb() {
+				const response = await fetch("/api/get-song-db");
+				const items = await response.json();
+				// 取得したjsonをそのまま表示
+				document.getElementById("db").innerText = JSON.stringify(items, null, 2);
 			}
 
-			getTestMessage();
+			getDataFromDb();
 		</script>
 	</body>
 </html>
