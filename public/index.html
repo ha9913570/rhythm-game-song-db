@@ -5,19 +5,7 @@
 	</head>
 
 	<body>
-		<h1>Hello World</h1>
-
-		<div id="db"></div>
-		
-		<script>
-			async function getDataFromDb() {
-				const response = await fetch("/api/get-song-db");
-				const items = await response.json();
-				// 取得したjsonをそのまま表示
-				document.getElementById("db").innerText = JSON.stringify(items, null, 2);
-			}
-
-			getDataFromDb();
-		</script>
+		<h1>音ゲー収録曲データベース</h1>
+		<a href="./phigros">Phigros</a>
 	</body>
 </html>
