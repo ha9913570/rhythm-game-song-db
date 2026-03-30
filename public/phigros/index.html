@@ -2,21 +2,16 @@
 <html lang="ja">
 	<head>
 		<meta charset="utf-8">
+		<script src="./get_phigros_song.js"></script>
 	</head>
 
 	<body>
 		<h1>Phigros</h1>
 
 		<div id="db"></div>
+		<table id="song_list"></table>
 		
 		<script>
-			async function getDataFromDb() {
-				const response = await fetch("/api/get-song-db");
-				const items = await response.json();
-				// 取得したjsonをそのまま表示
-				document.getElementById("db").innerText = JSON.stringify(items, null, 2);
-			}
-
 			getDataFromDb();
 		</script>
 	</body>
