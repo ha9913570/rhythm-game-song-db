@@ -7,9 +7,9 @@ export default {
 		}
 		else if(url.pathname == "/api/get-song-db") {
 			const { results } = await env.phigros_song_db.prepare(
-			"SELECT * FROM Song;"
+			"SELECT * FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart;"
 			)
-				.all();
+			.all();
 			return Response.json(results);
 		}
 
