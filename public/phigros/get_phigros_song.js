@@ -48,7 +48,11 @@ async function getDataFromDb() {
 		thBpm.innerText = items[i].Bpm;
 		const songLength = items[i].SongLength;
 		const songLengthMinute = Math.floor(parseInt(songLength) / 60);
-		const songLengthSecond = parseInt(songLength) % 60;
+		let songLengthSecond = parseInt(songLength) % 60;
+		// 1桁の場合は0を結合
+		if(songLengthSecond < 10) {
+			songLengthSecond = "0" + songLengthSecond;
+		}
 		thSongLength.innerText = songLengthMinute + ":" + songLengthSecond;
 		thAddVersion.innerText = items[i].AddVersion;
 
