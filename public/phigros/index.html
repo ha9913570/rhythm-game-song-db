@@ -16,6 +16,22 @@
 	<body>
 		<h1>Phigros</h1>
 
+		<table>
+			<tr>
+				<th>並べ替え対象</th>
+				<th>
+					<select id="sort_type" onChange="getDataFromDb()">
+						<option value="song_name">曲名</option>
+						<option value="composer_name">作曲者名</option>
+						<option value="chapter_name">チャプター名</option>
+						<option value="bpm">BPM</option>
+						<option value="song_length">長さ</option>
+						<option value="add_version" selected>追加バージョン</option>
+					</select>
+				</th>
+			</tr>
+		</table>
+
 		<table id="song_list", border="1", style="border-collapse: collapse"></table>
 		
 		<script>

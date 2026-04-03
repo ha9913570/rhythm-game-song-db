@@ -1,9 +1,35 @@
 async function getDataFromDb() {
+	const sortType = document.getElementById("sort_type").value;
+	let apiUrl = "/api/get-song-db/";
+
+	switch(sortType) {
+		case "song_name":
+			apiUrl += "song-name-sort";
+			break;
+		case "composer_name":
+			apiUrl += "composer-name-sort";
+			break;
+		case "chapter_name":
+			apiUrl += "chapter-name-sort";
+			break;
+		case "bpm":
+			apiUrl += "bpm-sort";
+			break;
+		case "song_length":
+			apiUrl += "song-length-sort";
+			break;
+		case "add_version":
+			apiUrl += "add-version-sort";
+			break;
+	}
+
 	// apiから曲データを取得
-	const response = await fetch("/api/get-song-db");
+	const response = await fetch(apiUrl);
 	const items = await response.json();
 
 	const table = document.getElementById("song_list");
+	// テーブルを初期化
+	table.innerHTML = "";
 
 	// 表見出しを追加
 	const trTop = document.createElement("tr");

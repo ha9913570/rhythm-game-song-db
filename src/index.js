@@ -2,10 +2,63 @@ export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 
-		if(url.pathname == "/api/test-message") {
-			return new Response("Hello World!!");
+		// 曲名でソート
+		if(url.pathname == "/api/get-song-db/song-name-sort") {
+			const {results} = await env.phigros_song_db.prepare(`
+				SELECT *
+				FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+				ORDER BY SongName;
+			`)
+			.all();
+			return Response.json(results);
 		}
-		else if(url.pathname == "/api/get-song-db") {
+
+		// 作曲者名でソート
+		else if(url.pathname == "/api/get-song-db/composer-name-sort") {
+			const {results} = await env.phigros_song_db.prepare(`
+				SELECT *
+				FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+				ORDER BY ComposerName;
+			`)
+			.all();
+			return Response.json(results);
+		}
+
+		// チャプター名でソート
+		else if(url.pathname == "/api/get-song-db/chapter-name-sort") {
+			const {results} = await env.phigros_song_db.prepare(`
+				SELECT *
+				FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+				ORDER BY ChapterName;
+			`)
+			.all();
+			return Response.json(results);
+		}
+
+		// BPMでソート
+		else if(url.pathname == "/api/get-song-db/bpm-sort") {
+			const {results} = await env.phigros_song_db.prepare(`
+				SELECT *
+				FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+				ORDER BY Bpm;
+			`)
+			.all();
+			return Response.json(results);
+		}
+
+		// 曲の長さでソート
+		else if(url.pathname == "/api/get-song-db/song-length-sort") {
+			const {results} = await env.phigros_song_db.prepare(`
+				SELECT *
+				FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+				ORDER BY SongLength;
+			`)
+			.all();
+			return Response.json(results);
+		}
+
+		// 追加バージョンでソート
+		else if(url.pathname == "/api/get-song-db/add-version-sort") {
 			// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
 			const { results } = await env.phigros_song_db.prepare(`
 				WITH Parsed AS (
