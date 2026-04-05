@@ -16,6 +16,31 @@
 	<body>
 		<h1>Phigros</h1>
 
+		<!-- 検索ボックス -->
+		<table>
+			<tr>
+				<th>曲名で検索</th>
+				<th>
+					<input type="text" id="search-song-name">
+				</th>
+			</tr>
+			<tr>
+				<th>作曲者名で検索</th>
+				<th>
+					<input type="text" id="search-composer-name">
+				</th>
+			</tr>
+			<tr>
+				<th>チャプター名で検索</th>
+				<th>
+					<input type="text" id="search-chapter-name">
+				</th>
+			</tr>
+		</table>
+
+		<br>
+
+		<!-- 並べ替え -->
 		<table>
 			<tr>
 				<th>並べ替え対象</th>
@@ -32,6 +57,9 @@
 			</tr>
 		</table>
 
+		<br>
+
+		<!-- データベースのデータ -->
 		<table id="song_list", border="1", style="border-collapse: collapse"></table>
 		
 		<script>
