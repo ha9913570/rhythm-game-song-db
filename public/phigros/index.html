@@ -55,6 +55,13 @@
 						<option value="add_version" selected>追加バージョン</option>
 					</select>
 				</th>
+				<th>順番</th>
+				<th>
+					<select id="order_by" onChange="getDataFromDb()">
+						<option value="asc" selected>昇順</option>
+						<option value="desc">降順</option>
+					</select>
+				</th>
 			</tr>
 		</table>
 

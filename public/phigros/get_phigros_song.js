@@ -1,26 +1,35 @@
 async function getDataFromDb() {
 	const sortType = document.getElementById("sort_type").value;
-	let apiUrl = "/api/get-song-db/";
+	const orderBy = document.getElementById("order_by").value;
+	let apiUrl = "/api/get-phigros-db";
 
+	// ソート対象をurlクエリに追加
 	switch(sortType) {
 		case "song_name":
-			apiUrl += "song-name-sort";
+			apiUrl += "?sort_by=SongName";
 			break;
 		case "composer_name":
-			apiUrl += "composer-name-sort";
+			apiUrl += "?sort_by=ComposerName";
 			break;
 		case "chapter_name":
-			apiUrl += "chapter-name-sort";
+			apiUrl += "?sort_by=ChapterName";
 			break;
 		case "bpm":
-			apiUrl += "bpm-sort";
+			apiUrl += "?sort_by=Bpm";
 			break;
 		case "song_length":
-			apiUrl += "song-length-sort";
+			apiUrl += "?sort_by=SongLength";
 			break;
 		case "add_version":
-			apiUrl += "add-version-sort";
+			apiUrl += "?sort_by=AddVersion";
 			break;
+	}
+
+	// ソート順をurlクエリに追加
+	if(orderBy == "desc") {
+		apiUrl += "&order_by=DESC";
+	} else {
+		apiUrl += "&order_by=ASC";
 	}
 
 	// apiから曲データを取得
