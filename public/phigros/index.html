@@ -46,7 +46,7 @@
 			<tr>
 				<th>並べ替え対象</th>
 				<th>
-					<select id="sort_type" onChange="getDataFromDb()">
+					<select id="sort_type" onChange="getPhigrosDataFromDb()">
 						<option value="song_name">曲名</option>
 						<option value="composer_name">作曲者名</option>
 						<option value="chapter_name">チャプター名</option>
@@ -57,7 +57,7 @@
 				</th>
 				<th>順番</th>
 				<th>
-					<select id="order_by" onChange="getDataFromDb()">
+					<select id="order_by" onChange="getPhigrosDataFromDb()">
 						<option value="asc" selected>昇順</option>
 						<option value="desc">降順</option>
 					</select>
@@ -71,7 +71,7 @@
 		<table id="song_list", border="1", style="border-collapse: collapse"></table>
 		
 		<script>
-			getDataFromDb();
+			getPhigrosDataFromDb();
 		</script>
 	</body>
 </html>

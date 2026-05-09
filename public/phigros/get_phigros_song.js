@@ -1,4 +1,4 @@
-async function getDataFromDb() {
+async function getPhigrosDataFromDb() {
 	const sortType = document.getElementById("sort_type").value;
 	const orderBy = document.getElementById("order_by").value;
 	let apiUrl = "/api/get-phigros-db";
