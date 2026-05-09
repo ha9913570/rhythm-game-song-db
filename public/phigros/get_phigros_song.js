@@ -1,3 +1,12 @@
+async function getLatestVersion() {
+	const apiUrl = "/api/get-phigros-db?sort_by=AddVersion&order_by=DESC&limit=1";
+	const response = await fetch(apiUrl);
+	const item = await response.json();
+
+	document.getElementById("latest-version").innerText = item[0].AddVersion;
+}
+
+
 async function getPhigrosDataFromDb() {
 	const sortType = document.getElementById("sort_type").value;
 	const orderBy = document.getElementById("order_by").value;

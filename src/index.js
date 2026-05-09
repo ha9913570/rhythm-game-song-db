@@ -10,6 +10,8 @@ export default {
 			const sortColumn = SORT_COLUMNS.has(sortBy) ? sortBy : "AddVersion";
 			// ソート順を取得(デフォルトは昇順)
 			const orderBy = url.searchParams.get("order_by")?.toUpperCase() == "DESC" ? "DESC" : "ASC";
+			// 表示件数を取得
+			const limit = url.searchParams.get("limit") ?? 999999;
 
 			// ソート対象が追加バージョンの時
 			if(sortColumn == "AddVersion") {
@@ -26,7 +28,8 @@ export default {
 					ORDER BY
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
-					CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy};
+					CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy}
+					LIMIT ${limit};
 				`).all();
 				return Response.json(results);
 			}
@@ -35,7 +38,8 @@ export default {
 				const {results} = await env.phigros_song_db.prepare(`
 					SELECT *
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
-					ORDER BY ${sortColumn} ${orderBy};
+					ORDER BY ${sortColumn} ${orderBy}
+					LIMIT ${limit};
 				`).all();
 				return Response.json(results);
 			}

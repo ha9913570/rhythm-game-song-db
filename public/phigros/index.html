@@ -16,6 +16,8 @@
 	<body>
 		<h1>Phigros</h1>
 
+		<div>バージョン<span id="latest-version"></span>までの情報を表示しています。</div>
+
 		<!-- 検索ボックス -->
 		<table>
 			<tr>
@@ -72,6 +74,7 @@
 		
 		<script>
 			getPhigrosDataFromDb();
+			getLatestVersion();
 		</script>
 	</body>
 </html>
