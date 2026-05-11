@@ -11,19 +11,19 @@ export default {
 			// ソート順を取得(デフォルトは昇順)
 			const orderBy = url.searchParams.get("order_by")?.toUpperCase() == "DESC" ? "DESC" : "ASC";
 			// 表示件数を取得
-			const limit = url.searchParams.get("limit") ?? 999999;
+			const limit = url.searchParams.get("limit") ?? 9999;
 
 			// ソート対象が追加バージョンの時
 			if(sortColumn == "AddVersion") {
 				// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
 				const { results } = await env.phigros_song_db.prepare(`
 					WITH Parsed AS (
-						SELECT *,
+						SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion,
 						INSTR(AddVersion, '.') AS Dot1,
 						INSTR(AddVersion, '.') + INSTR(SUBSTR(AddVersion, INSTR(AddVersion, '.') + 1), '.') AS Dot2
 						FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
 					)
-					SELECT *
+					SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion
 					FROM Parsed
 					ORDER BY
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
@@ -36,7 +36,7 @@ export default {
 			// ソート対象が追加バージョン以外の時
 			else {
 				const {results} = await env.phigros_song_db.prepare(`
-					SELECT *
+					SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
 					ORDER BY ${sortColumn} ${orderBy}
 					LIMIT ${limit};
