@@ -13,6 +13,9 @@ export default {
 			// 表示件数を取得
 			const limit = url.searchParams.get("limit") ?? 9999;
 
+			// 曲名検索単語を取得
+			const searchWordSongName = url.searchParams.get("song_name") ?? "";
+
 			// ソート対象が追加バージョンの時
 			if(sortColumn == "AddVersion") {
 				// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
@@ -25,6 +28,7 @@ export default {
 					)
 					SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion
 					FROM Parsed
+					WHERE SongName LIKE '%${searchWordSongName}%'
 					ORDER BY
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
@@ -38,6 +42,7 @@ export default {
 				const {results} = await env.phigros_song_db.prepare(`
 					SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+					WHERE SongName LIKE '%${searchWordSongName}%'
 					ORDER BY ${sortColumn} ${orderBy}
 					LIMIT ${limit};
 				`).all();

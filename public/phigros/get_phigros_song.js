@@ -10,6 +10,9 @@ async function getLatestVersion() {
 async function getPhigrosDataFromDb() {
 	const sortType = document.getElementById("sort_type").value;
 	const orderBy = document.getElementById("order_by").value;
+
+	const searchWordSongName = document.getElementById("search-song-name").value;
+
 	let apiUrl = "/api/get-phigros-db";
 
 	// ソート対象をurlクエリに追加
@@ -39,6 +42,12 @@ async function getPhigrosDataFromDb() {
 		apiUrl += "&order_by=DESC";
 	} else {
 		apiUrl += "&order_by=ASC";
+	}
+
+	// 検索文字をurlクエリに追加
+	if(searchWordSongName.length != 0) {
+		apiUrl += "&song_name=";
+		apiUrl += searchWordSongName;
 	}
 
 	// apiから曲データを取得
