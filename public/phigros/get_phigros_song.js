@@ -56,7 +56,7 @@ async function getPhigrosDataFromDb() {
 
 	const table = document.getElementById("song_list");
 	// テーブルを初期化
-	table.innerHTML = "";
+	table.innerText = "";
 
 	// 表見出しを追加
 	const trTop = document.createElement("tr");
