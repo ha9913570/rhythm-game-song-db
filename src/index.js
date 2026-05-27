@@ -13,8 +13,9 @@ export default {
 			// 表示件数を取得
 			const limit = url.searchParams.get("limit") ?? 9999;
 
-			// 曲名検索単語を取得
+			// 検索単語を取得
 			const searchWordSongName = url.searchParams.get("song_name") ?? "";
+			const searchWordComposerName = url.searchParams.get("composer_name") ?? "";
 
 			// ソート対象が追加バージョンの時
 			if(sortColumn == "AddVersion") {
@@ -29,6 +30,7 @@ export default {
 					SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion
 					FROM Parsed
 					WHERE SongName LIKE '%${searchWordSongName}%'
+					AND ComposerName LIKE '%${searchWordComposerName}%'
 					ORDER BY
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
@@ -43,6 +45,7 @@ export default {
 					SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
 					WHERE SongName LIKE '%${searchWordSongName}%'
+					AND ComposerName LIKE '%${searchWordComposerName}%'
 					ORDER BY ${sortColumn} ${orderBy}
 					LIMIT ${limit};
 				`).all();

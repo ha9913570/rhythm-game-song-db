@@ -12,6 +12,7 @@ async function getPhigrosDataFromDb() {
 	const orderBy = document.getElementById("order_by").value;
 
 	const searchWordSongName = document.getElementById("search-song-name").value;
+	const searchWordComposerName = document.getElementById("search-composer-name").value;
 
 	let apiUrl = "/api/get-phigros-db";
 
@@ -48,6 +49,11 @@ async function getPhigrosDataFromDb() {
 	if(searchWordSongName.length != 0) {
 		apiUrl += "&song_name=";
 		apiUrl += searchWordSongName;
+	}
+
+	if(searchWordComposerName.length != 0) {
+		apiUrl += "&composer_name=";
+		apiUrl += searchWordComposerName;
 	}
 
 	// apiから曲データを取得
