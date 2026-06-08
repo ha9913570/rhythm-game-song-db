@@ -48,18 +48,18 @@
 			<tr>
 				<th>並べ替え対象</th>
 				<th>
-					<select id="sort_type" onChange="getPhigrosDataFromDb()">
-						<option value="song_name">曲名</option>
-						<option value="composer_name">作曲者名</option>
-						<option value="chapter_name">チャプター名</option>
+					<select id="sort-type" onChange="getPhigrosDataFromDb()">
+						<option value="song-name">曲名</option>
+						<option value="composer-name">作曲者名</option>
+						<option value="chapter-name">チャプター名</option>
 						<option value="bpm">BPM</option>
-						<option value="song_length">長さ</option>
-						<option value="add_version" selected>追加バージョン</option>
+						<option value="song-length">長さ</option>
+						<option value="add-version" selected>追加バージョン</option>
 					</select>
 				</th>
 				<th>順番</th>
 				<th>
-					<select id="order_by" onChange="getPhigrosDataFromDb()">
+					<select id="order-by" onChange="getPhigrosDataFromDb()">
 						<option value="asc" selected>昇順</option>
 						<option value="desc">降順</option>
 					</select>
@@ -70,7 +70,7 @@
 		<br>
 
 		<!-- データベースのデータ -->
-		<table id="song_list", border="1", style="border-collapse: collapse"></table>
+		<table id="song-list", border="1", style="border-collapse: collapse"></table>
 		
 		<script>
 			getPhigrosDataFromDb();

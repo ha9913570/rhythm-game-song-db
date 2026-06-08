@@ -8,8 +8,8 @@ async function getLatestVersion() {
 
 
 async function getPhigrosDataFromDb() {
-	const sortType = document.getElementById("sort_type").value;
-	const orderBy = document.getElementById("order_by").value;
+	const sortType = document.getElementById("sort-type").value;
+	const orderBy = document.getElementById("order-by").value;
 
 	const searchWordSongName = document.getElementById("search-song-name").value;
 	const searchWordComposerName = document.getElementById("search-composer-name").value;
@@ -18,22 +18,22 @@ async function getPhigrosDataFromDb() {
 
 	// ソート対象をurlクエリに追加
 	switch(sortType) {
-		case "song_name":
+		case "song-name":
 			apiUrl += "?sort_by=SongName";
 			break;
-		case "composer_name":
+		case "composer-name":
 			apiUrl += "?sort_by=ComposerName";
 			break;
-		case "chapter_name":
+		case "chapter-name":
 			apiUrl += "?sort_by=ChapterName";
 			break;
 		case "bpm":
 			apiUrl += "?sort_by=Bpm";
 			break;
-		case "song_length":
+		case "song-length":
 			apiUrl += "?sort_by=SongLength";
 			break;
-		case "add_version":
+		case "add-version":
 			apiUrl += "?sort_by=AddVersion";
 			break;
 	}
@@ -60,7 +60,7 @@ async function getPhigrosDataFromDb() {
 	const response = await fetch(apiUrl);
 	const items = await response.json();
 
-	const table = document.getElementById("song_list");
+	const table = document.getElementById("song-list");
 	// テーブルを初期化
 	table.innerText = "";
 
