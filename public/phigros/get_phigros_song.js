@@ -90,7 +90,8 @@ async function getPhigrosDataFromDb() {
 	table.appendChild(trTop);
 
 	// 曲データを表に追加
-	for(let i = 0; i < items.length; i++){
+	let i;
+	for(i = 0; i < items.length; i++){
 		let tr = document.createElement("tr");
 		tr.setAttribute("align", "left");
 
@@ -123,5 +124,8 @@ async function getPhigrosDataFromDb() {
 		tr.appendChild(thAddVersion);
 		table.appendChild(tr);
 	}
+
+	// 表示されているデータの数を表示
+	document.getElementById("column-num").innerText = i;
 }
 
