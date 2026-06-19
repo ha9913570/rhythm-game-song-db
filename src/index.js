@@ -16,6 +16,7 @@ export default {
 			// 検索単語を取得
 			const searchWordSongName = url.searchParams.get("songName") ?? "";
 			const searchWordComposerName = url.searchParams.get("composerName") ?? "";
+			const searchWordChapterName = url.searchParams.get("chapterName") ?? "";
 
 			// ソート対象が追加バージョンの時
 			if(sortColumn == "AddVersion") {
@@ -31,6 +32,7 @@ export default {
 					FROM Parsed
 					WHERE SongName LIKE '%${searchWordSongName}%'
 					AND ComposerName LIKE '%${searchWordComposerName}%'
+					AND ChapterName LIKE '%${searchWordChapterName}%'
 					ORDER BY
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
@@ -46,6 +48,7 @@ export default {
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
 					WHERE SongName LIKE '%${searchWordSongName}%'
 					AND ComposerName LIKE '%${searchWordComposerName}%'
+					AND ChapterName LIKE '%${searchWordChapterName}%'
 					ORDER BY ${sortColumn} ${orderBy}
 					LIMIT ${limit};
 				`).all();

@@ -6,6 +6,13 @@ async function getLatestVersion() {
 	document.getElementById("latest-version").innerText = item[0].AddVersion;
 }
 
+async function clearSearchParam() {
+	document.getElementById("search-song-name").value = "";
+	document.getElementById("search-composer-name").value = "";
+	document.getElementById("search-chapter-name").value = "";
+
+	await getPhigrosDataFromDb();
+}
 
 async function getPhigrosDataFromDb() {
 	const sortType = document.getElementById("sort-type").value;
@@ -13,6 +20,7 @@ async function getPhigrosDataFromDb() {
 
 	const searchWordSongName = document.getElementById("search-song-name").value;
 	const searchWordComposerName = document.getElementById("search-composer-name").value;
+	const searchWordChapterName = document.getElementById("search-chapter-name").value;
 
 	let apiUrl = "/api/getPhigrosDb";
 
@@ -54,6 +62,11 @@ async function getPhigrosDataFromDb() {
 	if(searchWordComposerName.length != 0) {
 		apiUrl += "&composerName=";
 		apiUrl += searchWordComposerName;
+	}
+
+	if(searchWordChapterName.length != 0) {
+		apiUrl += "&chapterName=";
+		apiUrl += searchWordChapterName;
 	}
 
 	// apiから曲データを取得
