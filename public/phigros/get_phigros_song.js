@@ -1,5 +1,5 @@
 async function getLatestVersion() {
-	const apiUrl = "/api/get-phigros-db?sort_by=AddVersion&order_by=DESC&limit=1";
+	const apiUrl = "/api/getPhigrosDb?sortBy=AddVersion&orderBy=DESC&limit=1";
 	const response = await fetch(apiUrl);
 	const item = await response.json();
 
@@ -14,45 +14,45 @@ async function getPhigrosDataFromDb() {
 	const searchWordSongName = document.getElementById("search-song-name").value;
 	const searchWordComposerName = document.getElementById("search-composer-name").value;
 
-	let apiUrl = "/api/get-phigros-db";
+	let apiUrl = "/api/getPhigrosDb";
 
 	// ソート対象をurlクエリに追加
 	switch(sortType) {
 		case "song-name":
-			apiUrl += "?sort_by=SongName";
+			apiUrl += "?sortBy=SongName";
 			break;
 		case "composer-name":
-			apiUrl += "?sort_by=ComposerName";
+			apiUrl += "?sortBy=ComposerName";
 			break;
 		case "chapter-name":
-			apiUrl += "?sort_by=ChapterName";
+			apiUrl += "?sortBy=ChapterName";
 			break;
 		case "bpm":
-			apiUrl += "?sort_by=Bpm";
+			apiUrl += "?sortBy=Bpm";
 			break;
 		case "song-length":
-			apiUrl += "?sort_by=SongLength";
+			apiUrl += "?sortBy=SongLength";
 			break;
 		case "add-version":
-			apiUrl += "?sort_by=AddVersion";
+			apiUrl += "?sortBy=AddVersion";
 			break;
 	}
 
 	// ソート順をurlクエリに追加
 	if(orderBy == "desc") {
-		apiUrl += "&order_by=DESC";
+		apiUrl += "&orderBy=DESC";
 	} else {
-		apiUrl += "&order_by=ASC";
+		apiUrl += "&orderBy=ASC";
 	}
 
 	// 検索文字をurlクエリに追加
 	if(searchWordSongName.length != 0) {
-		apiUrl += "&song_name=";
+		apiUrl += "&songName=";
 		apiUrl += searchWordSongName;
 	}
 
 	if(searchWordComposerName.length != 0) {
-		apiUrl += "&composer_name=";
+		apiUrl += "&composerName=";
 		apiUrl += searchWordComposerName;
 	}
 

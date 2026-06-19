@@ -2,20 +2,20 @@ export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 
-		if(url.pathname == "/api/get-phigros-db") {
+		if(url.pathname == "/api/getPhigrosDb") {
 			const SORT_COLUMNS = new Set(["SongName", "ComposerName", "ChapterName", "Bpm", "SongLength"]);
 
 			// ソート対象を取得(デフォルトは追加バージョン)
-			const sortBy = url.searchParams.get("sort_by") ?? "AddVersion";
+			const sortBy = url.searchParams.get("sortBy") ?? "AddVersion";
 			const sortColumn = SORT_COLUMNS.has(sortBy) ? sortBy : "AddVersion";
 			// ソート順を取得(デフォルトは昇順)
-			const orderBy = url.searchParams.get("order_by")?.toUpperCase() == "DESC" ? "DESC" : "ASC";
+			const orderBy = url.searchParams.get("orderBy")?.toUpperCase() == "DESC" ? "DESC" : "ASC";
 			// 表示件数を取得
 			const limit = url.searchParams.get("limit") ?? 9999;
 
 			// 検索単語を取得
-			const searchWordSongName = url.searchParams.get("song_name") ?? "";
-			const searchWordComposerName = url.searchParams.get("composer_name") ?? "";
+			const searchWordSongName = url.searchParams.get("songName") ?? "";
+			const searchWordComposerName = url.searchParams.get("composerName") ?? "";
 
 			// ソート対象が追加バージョンの時
 			if(sortColumn == "AddVersion") {
