@@ -4,4 +4,5 @@ a {
 #song-list {
 	border-collapse: collapse;
 	border-color: #303030;
+	word-break: break-word;
 }
