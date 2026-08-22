@@ -93,6 +93,8 @@ async function getPhigrosDataFromDb() {
 	thSongLengthTop.innerText = "長さ";
 	thAddVersionTop.innerText = "追加バージョン";
 
+	trTop.setAttribute("class", "table-header");
+
 	trTop.appendChild(thSongNameTop);
 	trTop.appendChild(thComposerNameTop);
 	trTop.appendChild(thChapterNameTop);
@@ -108,6 +110,7 @@ async function getPhigrosDataFromDb() {
 		let tr = document.createElement("tr");
 		tr.setAttribute("align", "left");
 
+		// 要素の作成
 		let thSongName = document.createElement("th");
 		let thComposerName = document.createElement("th");
 		let thChapterName = document.createElement("th");
@@ -115,6 +118,15 @@ async function getPhigrosDataFromDb() {
 		let thSongLength= document.createElement("th");
 		let thAddVersion= document.createElement("th");
 
+		// 要素にclassを付与
+		thSongName.setAttribute("class", "song-name-value");
+		thComposerName.setAttribute("class", "composer-name-value");
+		thChapterName.setAttribute("class", "chapter-name-value");
+		thBpm.setAttribute("class", "bpm-value");
+		thSongLength.setAttribute("class", "song-length-value");
+		thAddVersion.setAttribute("class", "add-version-value");
+
+		// 値を設定
 		thSongName.innerText = items[i].SongName;
 		thComposerName.innerText = items[i].ComposerName;
 		thChapterName.innerText = items[i].ChapterName;

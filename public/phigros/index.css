@@ -1,8 +1,26 @@
 a {
 	color: #0000ff;
 }
+
+/* 曲一覧表関連 */
+#song-list-wrapper {
+	overflow-x: auto;
+}
 #song-list {
 	border-collapse: collapse;
 	border-color: #303030;
-	word-break: break-word;
+}
+#song-list tr:hover {
+	background: rgba(0, 0, 0, 0.04);
+}
+#song-list th {
+	white-space: nowrap;
+}
+#song-list .table-header {
+	border-bottom: 2px solid #303030;
+	font-size: 18px;
+}
+.bpm-value,
+.song-length-value {
+	text-align: right;
 }
