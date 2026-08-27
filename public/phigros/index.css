@@ -25,6 +25,12 @@ a {
 	font-size: 18px;
 }
 
+.song-name-value,
+.composer-name-value,
+.chapter-name-value {
+	font-size: 14px;
+}
+
 .bpm-value,
 .song-length-value {
 	text-align: right;
