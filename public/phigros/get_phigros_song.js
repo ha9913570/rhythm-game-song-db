@@ -1,3 +1,4 @@
+// 追加されているデータの中で最新のバージョンを取得しHTMLの要素を変更する関数
 async function getLatestVersion() {
 	const apiUrl = "/api/getPhigrosDb?sortBy=AddVersion&orderBy=DESC&limit=1";
 	const response = await fetch(apiUrl);
@@ -6,6 +7,7 @@ async function getLatestVersion() {
 	document.getElementById("latest-version").innerText = item[0].AddVersion;
 }
 
+// 検索用テキストボックスの値を消す関数
 async function clearSearchParam() {
 	document.getElementById("search-song-name").value = "";
 	document.getElementById("search-composer-name").value = "";
@@ -14,6 +16,7 @@ async function clearSearchParam() {
 	await getPhigrosDataFromDb();
 }
 
+// データベースからデータを取得し、表を作成する関数
 async function getPhigrosDataFromDb() {
 	const sortType = document.getElementById("sort-type").value;
 	const orderBy = document.getElementById("order-by").value;
@@ -25,7 +28,7 @@ async function getPhigrosDataFromDb() {
 	let apiUrl = "/api/getPhigrosDb";
 
 	// ソート対象をurlクエリに追加
-	switch(sortType) {
+	switch (sortType) {
 		case "song-name":
 			apiUrl += "?sortBy=SongName";
 			break;
@@ -47,24 +50,22 @@ async function getPhigrosDataFromDb() {
 	}
 
 	// ソート順をurlクエリに追加
-	if(orderBy == "desc") {
+	if (orderBy == "desc") {
 		apiUrl += "&orderBy=DESC";
 	} else {
 		apiUrl += "&orderBy=ASC";
 	}
 
 	// 検索文字をurlクエリに追加
-	if(searchWordSongName.length != 0) {
+	if (searchWordSongName.length != 0) {
 		apiUrl += "&songName=";
 		apiUrl += searchWordSongName;
 	}
-
-	if(searchWordComposerName.length != 0) {
+	if (searchWordComposerName.length != 0) {
 		apiUrl += "&composerName=";
 		apiUrl += searchWordComposerName;
 	}
-
-	if(searchWordChapterName.length != 0) {
+	if (searchWordChapterName.length != 0) {
 		apiUrl += "&chapterName=";
 		apiUrl += searchWordChapterName;
 	}
@@ -106,7 +107,7 @@ async function getPhigrosDataFromDb() {
 
 	// 曲データを表に追加
 	let i;
-	for(i = 0; i < items.length; i++){
+	for (i = 0; i < items.length; i++) {
 		let tr = document.createElement("tr");
 		tr.setAttribute("align", "left");
 
@@ -115,8 +116,8 @@ async function getPhigrosDataFromDb() {
 		let thComposerName = document.createElement("th");
 		let thChapterName = document.createElement("th");
 		let thBpm = document.createElement("th");
-		let thSongLength= document.createElement("th");
-		let thAddVersion= document.createElement("th");
+		let thSongLength = document.createElement("th");
+		let thAddVersion = document.createElement("th");
 
 		// 要素にclassを付与
 		thSongName.setAttribute("class", "song-name-value");
@@ -135,7 +136,7 @@ async function getPhigrosDataFromDb() {
 		const songLengthMinute = Math.floor(parseInt(songLength) / 60);
 		let songLengthSecond = parseInt(songLength) % 60;
 		// 1桁の場合は0を結合
-		if(songLengthSecond < 10) {
+		if (songLengthSecond < 10) {
 			songLengthSecond = "0" + songLengthSecond;
 		}
 		thSongLength.innerText = songLengthMinute + ":" + songLengthSecond;
@@ -153,4 +154,3 @@ async function getPhigrosDataFromDb() {
 	// 表示されているデータの数を表示
 	document.getElementById("column-num").innerText = i;
 }
-

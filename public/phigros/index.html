@@ -1,80 +1,82 @@
 <!DOCTYPE html>
 <html lang="ja">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="./index.css">
-		<script src="./get_phigros_song.js"></script>
-	</head>
 
-	<body>
-		<h1>Phigros</h1>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="./index.css">
+	<script src="./get_phigros_song.js"></script>
+</head>
 
-		<div>バージョン<span id="latest-version"></span>までの情報を表示しています。</div>
+<body>
+	<h1>Phigros</h1>
 
-		<!-- 検索ボックス -->
-		<table>
-			<tr>
-				<th>曲名で検索</th>
-				<th>
-					<input type="text" id="search-song-name">
-				</th>
-			</tr>
-			<tr>
-				<th>作曲者名で検索</th>
-				<th>
-					<input type="text" id="search-composer-name">
-				</th>
-			</tr>
-			<tr>
-				<th>チャプター名で検索</th>
-				<th>
-					<input type="text" id="search-chapter-name">
-				</th>
-			</tr>
-		</table>
-		<input type="button" value="検索" onclick="getPhigrosDataFromDb()">
-		<input type="button" value="クリア" onclick="clearSearchParam()">
+	<div>バージョン<span id="latest-version"></span>までの情報を表示しています。</div>
 
-		<br>
+	<!-- 検索ボックス -->
+	<table>
+		<tr>
+			<th>曲名で検索</th>
+			<th>
+				<input type="text" id="search-song-name">
+			</th>
+		</tr>
+		<tr>
+			<th>作曲者名で検索</th>
+			<th>
+				<input type="text" id="search-composer-name">
+			</th>
+		</tr>
+		<tr>
+			<th>チャプター名で検索</th>
+			<th>
+				<input type="text" id="search-chapter-name">
+			</th>
+		</tr>
+	</table>
+	<input type="button" value="検索" onclick="getPhigrosDataFromDb()">
+	<input type="button" value="クリア" onclick="clearSearchParam()">
 
-		<!-- 並べ替え -->
-		<table>
-			<tr>
-				<th>並べ替え対象</th>
-				<th>
-					<select id="sort-type" onChange="getPhigrosDataFromDb()">
-						<option value="song-name">曲名</option>
-						<option value="composer-name">作曲者名</option>
-						<option value="chapter-name">チャプター名</option>
-						<option value="bpm">BPM</option>
-						<option value="song-length">長さ</option>
-						<option value="add-version" selected>追加バージョン</option>
-					</select>
-				</th>
-				<th>順番</th>
-				<th>
-					<select id="order-by" onChange="getPhigrosDataFromDb()">
-						<option value="asc" selected>昇順</option>
-						<option value="desc">降順</option>
-					</select>
-				</th>
-			</tr>
-		</table>
+	<br>
 
-		<br>
+	<!-- 並べ替え -->
+	<table>
+		<tr>
+			<th>並べ替え対象</th>
+			<th>
+				<select id="sort-type" onChange="getPhigrosDataFromDb()">
+					<option value="song-name">曲名</option>
+					<option value="composer-name">作曲者名</option>
+					<option value="chapter-name">チャプター名</option>
+					<option value="bpm">BPM</option>
+					<option value="song-length">長さ</option>
+					<option value="add-version" selected>追加バージョン</option>
+				</select>
+			</th>
+			<th>順番</th>
+			<th>
+				<select id="order-by" onChange="getPhigrosDataFromDb()">
+					<option value="asc" selected>昇順</option>
+					<option value="desc">降順</option>
+				</select>
+			</th>
+		</tr>
+	</table>
 
-		<!-- データベースのデータ -->
-		<p><span id="column-num"></span>件のデータを表示しています。</p>
-		<div id="song-list-wrapper">
-			<table id="song-list", border="1"></table>
-		</div>
+	<br>
 
-		<p>このサイトは<a href="https://wikiwiki.jp/phigros/">Phigros Wiki</a>を参考にデータを作成・表示しています。</p>
+	<!-- データベースのデータ -->
+	<p><span id="column-num"></span>件のデータを表示しています。</p>
+	<div id="song-list-wrapper">
+		<table id="song-list" , border="1"></table>
+	</div>
 
-		<script>
-			getPhigrosDataFromDb();
-			getLatestVersion();
-		</script>
-	</body>
+	<p>このサイトは<a href="https://wikiwiki.jp/phigros/">Phigros Wiki</a>を参考にデータを作成・表示しています。</p>
+
+	<script>
+		getPhigrosDataFromDb();
+		getLatestVersion();
+	</script>
+</body>
+
 </html>

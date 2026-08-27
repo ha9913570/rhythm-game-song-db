@@ -2,7 +2,8 @@ export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 
-		if(url.pathname == "/api/getPhigrosDb") {
+		// Phigrosのデータベース
+		if (url.pathname == "/api/getPhigrosDb") {
 			const SORT_COLUMNS = new Set(["SongName", "ComposerName", "ChapterName", "Bpm", "SongLength"]);
 
 			// ソート対象を取得(デフォルトは追加バージョン)
@@ -19,7 +20,7 @@ export default {
 			const searchWordChapterName = url.searchParams.get("chapterName") ?? "";
 
 			// ソート対象が追加バージョンの時
-			if(sortColumn == "AddVersion") {
+			if (sortColumn == "AddVersion") {
 				// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
 				const { results } = await env.phigros_song_db.prepare(`
 					WITH Parsed AS (
@@ -43,7 +44,7 @@ export default {
 			}
 			// ソート対象が追加バージョン以外の時
 			else {
-				const {results} = await env.phigros_song_db.prepare(`
+				const { results } = await env.phigros_song_db.prepare(`
 					SELECT SongName, ComposerName, ChapterName, Bpm, SongLength, AddVersion
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
 					WHERE SongName LIKE '%${searchWordSongName}%'
