@@ -2,27 +2,28 @@ a {
 	color: #0000ff;
 }
 
-/* 曲一覧表関連 */
-#song-list-wrapper {
-	overflow-x: auto;
-}
-
 #song-list {
-	border-collapse: collapse;
-	border-color: #303030;
+	border-collapse: separate;
+	border-color: #ddd;
+	border-spacing: 0;
 }
 
 #song-list tr:hover {
 	background: rgba(0, 0, 0, 0.04);
 }
 
-#song-list th {
+#song-list th,
+#song-list td {
 	white-space: nowrap;
 }
 
-#song-list .table-header {
-	border-bottom: 2px solid #303030;
+#song-list .table-header th {
+	background-color: #9fe9ff;
+	border-bottom: 2px solid #333;
 	font-size: 18px;
+	top: 0;
+	position: sticky;
+	z-index: 1;
 }
 
 .song-name-value,

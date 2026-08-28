@@ -115,37 +115,37 @@ async function getPhigrosDataFromDb() {
 		tr.setAttribute("align", "left");
 
 		// 要素の作成
-		let thSongName = document.createElement("th");
-		let thComposerName = document.createElement("th");
-		let thChapterName = document.createElement("th");
-		let thDifficulty = document.createElement("th");
-		let thBpm = document.createElement("th");
-		let thSongLength = document.createElement("th");
-		let thAddVersion = document.createElement("th");
+		let tdSongName = document.createElement("td");
+		let tdComposerName = document.createElement("td");
+		let tdChapterName = document.createElement("td");
+		let tdDifficulty = document.createElement("td");
+		let tdBpm = document.createElement("td");
+		let tdSongLength = document.createElement("td");
+		let tdAddVersion = document.createElement("td");
 
 		// 要素にclassを付与
-		thSongName.setAttribute("class", "song-name-value");
-		thComposerName.setAttribute("class", "composer-name-value");
-		thChapterName.setAttribute("class", "chapter-name-value");
-		thDifficulty.setAttribute("class", "difficulty-value")
-		thBpm.setAttribute("class", "bpm-value");
-		thSongLength.setAttribute("class", "song-length-value");
-		thAddVersion.setAttribute("class", "add-version-value");
+		tdSongName.setAttribute("class", "song-name-value");
+		tdComposerName.setAttribute("class", "composer-name-value");
+		tdChapterName.setAttribute("class", "chapter-name-value");
+		tdDifficulty.setAttribute("class", "difficulty-value")
+		tdBpm.setAttribute("class", "bpm-value");
+		tdSongLength.setAttribute("class", "song-length-value");
+		tdAddVersion.setAttribute("class", "add-version-value");
 
 		// 値を設定
-		thSongName.innerText = items[i].SongName;
-		thComposerName.innerText = items[i].ComposerName;
-		thChapterName.innerText = items[i].ChapterName;
+		tdSongName.innerText = items[i].SongName;
+		tdComposerName.innerText = items[i].ComposerName;
+		tdChapterName.innerText = items[i].ChapterName;
 		const diffEZ = String(items[i].DiffEZ);
 		const diffHD = String(items[i].DiffHD);
 		const diffIN = String(items[i].DiffIN);
 		const diffAT = items[i].DiffAT == null ? "" : String(items[i].DiffAT);
 		if (diffAT.length == 0) {
-			thDifficulty.innerText = diffEZ + ", " + diffHD + ", " + diffIN;
+			tdDifficulty.innerText = diffEZ + ", " + diffHD + ", " + diffIN;
 		} else {
-			thDifficulty.innerText = diffEZ + ", " + diffHD + ", " + diffIN + ", " + diffAT;
+			tdDifficulty.innerText = diffEZ + ", " + diffHD + ", " + diffIN + ", " + diffAT;
 		}
-		thBpm.innerText = items[i].Bpm;
+		tdBpm.innerText = items[i].Bpm;
 		const songLength = items[i].SongLength;
 		const songLengthMinute = Math.floor(parseInt(songLength) / 60);
 		let songLengthSecond = parseInt(songLength) % 60;
@@ -153,16 +153,16 @@ async function getPhigrosDataFromDb() {
 		if (songLengthSecond < 10) {
 			songLengthSecond = "0" + songLengthSecond;
 		}
-		thSongLength.innerText = songLengthMinute + ":" + songLengthSecond;
-		thAddVersion.innerText = items[i].AddVersion;
+		tdSongLength.innerText = songLengthMinute + ":" + songLengthSecond;
+		tdAddVersion.innerText = items[i].AddVersion;
 
-		tr.appendChild(thSongName);
-		tr.appendChild(thComposerName);
-		tr.appendChild(thChapterName);
-		tr.appendChild(thDifficulty);
-		tr.appendChild(thBpm);
-		tr.appendChild(thSongLength);
-		tr.appendChild(thAddVersion);
+		tr.appendChild(tdSongName);
+		tr.appendChild(tdComposerName);
+		tr.appendChild(tdChapterName);
+		tr.appendChild(tdDifficulty);
+		tr.appendChild(tdBpm);
+		tr.appendChild(tdSongLength);
+		tr.appendChild(tdAddVersion);
 		table.appendChild(tr);
 	}
 
