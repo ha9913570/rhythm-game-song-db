@@ -67,6 +67,18 @@ a {
 	font-size: 20px;
 }
 
-#song-list tbody tr:hover {
-	background: rgba(0, 0, 0, 0.08);
+.ez {
+	color: green;
+}
+
+.hd {
+	color: dodgerblue;
+}
+
+.in {
+	color: red;
+}
+
+.at {
+	color: purple;
 }
