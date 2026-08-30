@@ -106,7 +106,6 @@ async function getPhigrosDataFromDb() {
 		tr.setAttribute("align", "left");
 		tr.style.cursor = "pointer";
 
-		// 要素の作成(4列分だけ)
 		let tdSongName = document.createElement("td");
 		let tdComposerName = document.createElement("td");
 		let tdChapterName = document.createElement("td");
@@ -127,7 +126,7 @@ async function getPhigrosDataFromDb() {
 		tr.appendChild(tdChapterName);
 		tr.appendChild(tdAddVersion);
 
-		// 行クリックで詳細モーダルを表示(作曲者名・BPM・長さ・ノーツ数はここで見せる)
+		// 行クリックで詳細モーダルを表示
 		const currentItem = items[i];
 		tr.addEventListener("click", () => showSongDetail(currentItem));
 
