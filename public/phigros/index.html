@@ -8,6 +8,68 @@
 	<script src="./get_phigros_song.js"></script>
 </head>
 
+<!-- 表の要素をクリックしたときに表示するモーダル -->
+<div id="song-detail-modal" class="modal-overlay" onclick="if(event.target===this) closeSongDetail()">
+	<div class="modal-content">
+		<span class="modal-close" onclick="closeSongDetail()">×</span>
+		<h2 id="detail-song-name"></h2>
+		<table>
+			<tr>
+				<th>作曲者名</th>
+				<td id="detail-composer-name"></td>
+			</tr>
+			<tr>
+				<th>チャプター名</th>
+				<td id="detail-chapter-name"></td>
+			</tr>
+			<tr>
+				<th>BPM</th>
+				<td id="detail-bpm"></td>
+			</tr>
+			<tr>
+				<th>長さ</th>
+				<td id="detail-song-length"></td>
+			</tr>
+			<tr>
+				<th>難易度(EZ)</th>
+				<td id="detail-diff-ez"></td>
+			</tr>
+			<tr>
+				<th>難易度(HD)</th>
+				<td id="detail-diff-hd"></td>
+			</tr>
+			<tr>
+				<th>難易度(IN)</th>
+				<td id="detail-diff-in"></td>
+			</tr>
+			<tr>
+				<th>難易度(AT)</th>
+				<td id="detail-diff-at"></td>
+			</tr>
+			<tr>
+				<th>ノーツ数(EZ)</th>
+				<td id="detail-note-ez"></td>
+			</tr>
+			<tr>
+				<th>ノーツ数(HD)</th>
+				<td id="detail-note-hd"></td>
+			</tr>
+			<tr>
+				<th>ノーツ数(IN)</th>
+				<td id="detail-note-in"></td>
+			</tr>
+			<tr>
+				<th>ノーツ数(AT)</th>
+				<td id="detail-note-at"></td>
+			</tr>
+			<tr>
+				<th>追加バージョン</th>
+				<td id="detail-add-version"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
 <body>
 	<h1>Phigros</h1>
 
@@ -65,8 +127,10 @@
 
 	<br>
 
-	<!-- データベースのデータ -->
 	<p><span id="column-num"></span>件のデータを表示しています。</p>
+	<p>クリックすることで詳細を表示できます。</p>
+
+	<!-- データベースのデータ -->
 	<div id="song-list-wrapper">
 		<table id="song-list" , border="1"></table>
 	</div>

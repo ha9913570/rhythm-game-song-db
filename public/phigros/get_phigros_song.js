@@ -80,20 +80,14 @@ async function getPhigrosDataFromDb() {
 
 	// 表見出しを追加
 	const trTop = document.createElement("tr");
-	const thSongNameTop = document.createElement("th")
+	const thSongNameTop = document.createElement("th");
 	const thComposerNameTop = document.createElement("th");
 	const thChapterNameTop = document.createElement("th");
-	const thDifficultyTop = document.createElement("th");
-	const thBpmTop = document.createElement("th");
-	const thSongLengthTop = document.createElement("th");
 	const thAddVersionTop = document.createElement("th");
 
 	thSongNameTop.innerText = "曲名";
 	thComposerNameTop.innerText = "作曲者名";
 	thChapterNameTop.innerText = "チャプター名";
-	thDifficultyTop.innerText = "難易度(EZ,HD,IN,AT)";
-	thBpmTop.innerText = "BPM";
-	thSongLengthTop.innerText = "長さ";
 	thAddVersionTop.innerText = "追加バージョン";
 
 	trTop.setAttribute("class", "table-header");
@@ -101,9 +95,6 @@ async function getPhigrosDataFromDb() {
 	trTop.appendChild(thSongNameTop);
 	trTop.appendChild(thComposerNameTop);
 	trTop.appendChild(thChapterNameTop);
-	trTop.appendChild(thDifficultyTop);
-	trTop.appendChild(thBpmTop);
-	trTop.appendChild(thSongLengthTop);
 	trTop.appendChild(thAddVersionTop);
 
 	table.appendChild(trTop);
@@ -113,59 +104,75 @@ async function getPhigrosDataFromDb() {
 	for (i = 0; i < items.length; i++) {
 		let tr = document.createElement("tr");
 		tr.setAttribute("align", "left");
+		tr.style.cursor = "pointer";
 
-		// 要素の作成
+		// 要素の作成(4列分だけ)
 		let tdSongName = document.createElement("td");
 		let tdComposerName = document.createElement("td");
 		let tdChapterName = document.createElement("td");
-		let tdDifficulty = document.createElement("td");
-		let tdBpm = document.createElement("td");
-		let tdSongLength = document.createElement("td");
 		let tdAddVersion = document.createElement("td");
 
-		// 要素にclassを付与
 		tdSongName.setAttribute("class", "song-name-value");
 		tdComposerName.setAttribute("class", "composer-name-value");
 		tdChapterName.setAttribute("class", "chapter-name-value");
-		tdDifficulty.setAttribute("class", "difficulty-value")
-		tdBpm.setAttribute("class", "bpm-value");
-		tdSongLength.setAttribute("class", "song-length-value");
 		tdAddVersion.setAttribute("class", "add-version-value");
 
-		// 値を設定
 		tdSongName.innerText = items[i].SongName;
 		tdComposerName.innerText = items[i].ComposerName;
 		tdChapterName.innerText = items[i].ChapterName;
-		const diffEZ = String(items[i].DiffEZ);
-		const diffHD = String(items[i].DiffHD);
-		const diffIN = String(items[i].DiffIN);
-		const diffAT = items[i].DiffAT == null ? "" : String(items[i].DiffAT);
-		if (diffAT.length == 0) {
-			tdDifficulty.innerText = diffEZ + ", " + diffHD + ", " + diffIN;
-		} else {
-			tdDifficulty.innerText = diffEZ + ", " + diffHD + ", " + diffIN + ", " + diffAT;
-		}
-		tdBpm.innerText = items[i].Bpm;
-		const songLength = items[i].SongLength;
-		const songLengthMinute = Math.floor(parseInt(songLength) / 60);
-		let songLengthSecond = parseInt(songLength) % 60;
-		// 1桁の場合は0を結合
-		if (songLengthSecond < 10) {
-			songLengthSecond = "0" + songLengthSecond;
-		}
-		tdSongLength.innerText = songLengthMinute + ":" + songLengthSecond;
 		tdAddVersion.innerText = items[i].AddVersion;
 
 		tr.appendChild(tdSongName);
 		tr.appendChild(tdComposerName);
 		tr.appendChild(tdChapterName);
-		tr.appendChild(tdDifficulty);
-		tr.appendChild(tdBpm);
-		tr.appendChild(tdSongLength);
 		tr.appendChild(tdAddVersion);
+
+		// 行クリックで詳細モーダルを表示(作曲者名・BPM・長さ・ノーツ数はここで見せる)
+		const currentItem = items[i];
+		tr.addEventListener("click", () => showSongDetail(currentItem));
+
 		table.appendChild(tr);
 	}
 
 	// 表示されているデータの数を表示
 	document.getElementById("column-num").innerText = i;
+}
+
+// 行クリック時に詳細モーダルを表示する関数
+function showSongDetail(item) {
+	document.getElementById("detail-song-name").innerText = item.SongName;
+	document.getElementById("detail-composer-name").innerText = item.ComposerName;
+	document.getElementById("detail-chapter-name").innerText = item.ChapterName;
+
+	if (item.Bpm == 0) {
+		document.getElementById("detail-bpm").innerText = "-";
+	} else {
+		document.getElementById("detail-bpm").innerText = item.Bpm;
+	}
+
+	const songLengthMinute = Math.floor(parseInt(item.SongLength) / 60);
+	let songLengthSecond = parseInt(item.SongLength) % 60;
+	if (songLengthSecond < 10) {
+		songLengthSecond = "0" + songLengthSecond;
+	}
+	document.getElementById("detail-song-length").innerText = songLengthMinute + ":" + songLengthSecond;
+
+	document.getElementById("detail-diff-ez").innerText = item.DiffEZ ?? "-";
+	document.getElementById("detail-diff-hd").innerText = item.DiffHD ?? "-";
+	document.getElementById("detail-diff-in").innerText = item.DiffIN ?? "-";
+	document.getElementById("detail-diff-at").innerText = item.DiffAT ?? "-";
+
+	document.getElementById("detail-note-ez").innerText = item.NoteEZ ?? "-";
+	document.getElementById("detail-note-hd").innerText = item.NoteHD ?? "-";
+	document.getElementById("detail-note-in").innerText = item.NoteIN ?? "-";
+	document.getElementById("detail-note-at").innerText = item.NoteAT ?? "-";
+
+	document.getElementById("detail-add-version").innerText = item.AddVersion;
+
+	document.getElementById("song-detail-modal").style.display = "flex";
+}
+
+// 詳細モーダルを閉じる関数
+function closeSongDetail() {
+	document.getElementById("song-detail-modal").style.display = "none";
 }

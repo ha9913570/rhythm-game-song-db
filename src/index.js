@@ -24,12 +24,12 @@ export default {
 				// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
 				const { results } = await env.phigros_song_db.prepare(`
 					WITH Parsed AS (
-						SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, Bpm, SongLength, AddVersion,
+						SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion,
 						INSTR(AddVersion, '.') AS Dot1,
 						INSTR(AddVersion, '.') + INSTR(SUBSTR(AddVersion, INSTR(AddVersion, '.') + 1), '.') AS Dot2
 						FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
 					)
-					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, Bpm, SongLength, AddVersion
+					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion
 					FROM Parsed
 					WHERE SongName LIKE '%${searchWordSongName}%'
 					AND ComposerName LIKE '%${searchWordComposerName}%'
@@ -45,7 +45,7 @@ export default {
 			// ソート対象が追加バージョン以外の時
 			else {
 				const { results } = await env.phigros_song_db.prepare(`
-					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, Bpm, SongLength, AddVersion
+					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
 					WHERE SongName LIKE '%${searchWordSongName}%'
 					AND ComposerName LIKE '%${searchWordComposerName}%'
