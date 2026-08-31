@@ -4,39 +4,34 @@ a {
 
 #song-list-wrapper {
 	overflow-x: auto;
-}
 
-#song-list {
-	border-collapse: separate;
-	border-color: #ddd;
-	border-spacing: 0;
-}
+	#song-list {
+		border-collapse: separate;
+		border-color: #ddd;
+		border-spacing: 0;
 
-#song-list tr:hover {
-	background: rgba(0, 0, 0, 0.04);
-}
+		tr:hover {
+			background: rgba(0, 0, 0, 0.04);
+		}
 
-#song-list th,
-#song-list td {
-	white-space: nowrap;
-}
+		th,
+		td {
+			white-space: nowrap;
+		}
 
-#song-list .table-header th {
-	background-color: #9fe9ff;
-	border-bottom: 2px solid #333;
-	font-size: 18px;
-	top: 0;
-	position: sticky;
-	z-index: 1;
-}
+		.table-header th {
+			background-color: #9fe9ff;
+			border-bottom: 2px solid #333;
+			font-size: 18px;
+			top: 0;
+			position: sticky;
+			z-index: 1;
+		}
 
-.song-name-value,
-.composer-name-value,
-.chapter-name-value {
-	font-size: 14px;
-}
-
-.bpm-value,
-.song-length-value {
-	text-align: right;
+		.song-name-value,
+		.composer-name-value,
+		.chapter-name-value {
+			font-size: 14px;
+		}
+	}
 }
