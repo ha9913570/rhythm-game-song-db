@@ -2,6 +2,10 @@ a {
 	color: #0000ff;
 }
 
+#song-list-wrapper {
+	overflow-x: auto;
+}
+
 #song-list {
 	border-collapse: separate;
 	border-color: #ddd;
