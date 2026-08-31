@@ -16,16 +16,15 @@ async function clearSearchParam() {
 	await getPhigrosDataFromDb();
 }
 
-// データベースからデータを取得し、表を作成する関数
-async function getPhigrosDataFromDb() {
+// テキストボックスの値などに応じてAPIのURLを取得する関数
+function getApiUrl() {
+	let apiUrl = "/api/getPhigrosDb";
+
 	const sortType = document.getElementById("sort-type").value;
 	const orderBy = document.getElementById("order-by").value;
-
 	const searchWordSongName = document.getElementById("search-song-name").value;
 	const searchWordComposerName = document.getElementById("search-composer-name").value;
 	const searchWordChapterName = document.getElementById("search-chapter-name").value;
-
-	let apiUrl = "/api/getPhigrosDb";
 
 	// ソート対象をurlクエリに追加
 	switch (sortType) {
@@ -69,6 +68,13 @@ async function getPhigrosDataFromDb() {
 		apiUrl += "&chapterName=";
 		apiUrl += searchWordChapterName;
 	}
+
+	return apiUrl;
+}
+
+// データベースからデータを取得し、表を作成する関数
+async function getPhigrosDataFromDb() {
+	const apiUrl = getApiUrl();
 
 	// apiから曲データを取得
 	const response = await fetch(apiUrl);
