@@ -2,23 +2,23 @@ export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 
+		// ソート対象リスト
+		const SORT_COLUMNS = new Set(["SongName", "ComposerName", "ChapterName", "Bpm", "SongLength"]);
+
+		// ソート対象を取得(デフォルトは追加バージョン)
+		const sortBy = url.searchParams.get("sortBy") ?? "AddVersion";
+		const sortColumn = SORT_COLUMNS.has(sortBy) ? sortBy : "AddVersion";
+		// ソート順を取得(デフォルトは昇順)
+		const orderBy = url.searchParams.get("orderBy")?.toUpperCase() == "DESC" ? "DESC" : "ASC";
+		// 表示件数を取得
+		const limit = url.searchParams.get("limit") ?? 9999;
+		// 検索単語を取得
+		const searchWordSongName = url.searchParams.get("songName") ?? "";
+		const searchWordComposerName = url.searchParams.get("composerName") ?? "";
+		const searchWordChapterName = url.searchParams.get("chapterName") ?? "";
+
 		// Phigrosのデータベース
 		if (url.pathname == "/api/getPhigrosDb") {
-			const SORT_COLUMNS = new Set(["SongName", "ComposerName", "ChapterName", "Bpm", "SongLength"]);
-
-			// ソート対象を取得(デフォルトは追加バージョン)
-			const sortBy = url.searchParams.get("sortBy") ?? "AddVersion";
-			const sortColumn = SORT_COLUMNS.has(sortBy) ? sortBy : "AddVersion";
-			// ソート順を取得(デフォルトは昇順)
-			const orderBy = url.searchParams.get("orderBy")?.toUpperCase() == "DESC" ? "DESC" : "ASC";
-			// 表示件数を取得
-			const limit = url.searchParams.get("limit") ?? 9999;
-
-			// 検索単語を取得
-			const searchWordSongName = url.searchParams.get("songName") ?? "";
-			const searchWordComposerName = url.searchParams.get("composerName") ?? "";
-			const searchWordChapterName = url.searchParams.get("chapterName") ?? "";
-
 			// ソート対象が追加バージョンの時
 			if (sortColumn == "AddVersion") {
 				// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
