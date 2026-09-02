@@ -37,6 +37,10 @@
             }
         }
 
+        table {
+            font-size: 15px;
+        }
+
         .ez {
             color: green;
         }
