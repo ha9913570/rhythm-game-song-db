@@ -25,29 +25,13 @@ async function getPhigrosDataFromDb() {
 	const items = await response.json();
 
 	const table = document.getElementById("song-list");
+
 	// テーブルを初期化
-	table.innerText = "";
-
-	// 表見出しを追加
-	const trTop = document.createElement("tr");
-	const thSongNameTop = document.createElement("th");
-	const thComposerNameTop = document.createElement("th");
-	const thChapterNameTop = document.createElement("th");
-	const thAddVersionTop = document.createElement("th");
-
-	thSongNameTop.innerText = "曲名";
-	thComposerNameTop.innerText = "作曲者名";
-	thChapterNameTop.innerText = "チャプター名";
-	thAddVersionTop.innerText = "追加バージョン";
-
-	trTop.setAttribute("class", "table-header");
-
-	trTop.appendChild(thSongNameTop);
-	trTop.appendChild(thComposerNameTop);
-	trTop.appendChild(thChapterNameTop);
-	trTop.appendChild(thAddVersionTop);
-
-	table.appendChild(trTop);
+	const tableChildren = table.children;
+	const tableChildrenLen = tableChildren.length;
+	for (let i = 1; i < tableChildrenLen; i++) {
+		table.children[1].remove();
+	}
 
 	// 曲データを表に追加
 	let i;
