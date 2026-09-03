@@ -1,3 +1,28 @@
+document.addEventListener("DOMContentLoaded", pageLoad);
+
+// ページがロードされたときに呼び出される関数
+function pageLoad() {
+	const songNameTextbox = document.getElementById("search-song-name");
+	const composerNameTextbox = document.getElementById("search-composer-name");
+	const chapterNameTextbox = document.getElementById("search-chapter-name");
+
+	// 検索テキストボックスにイベントを付与
+	songNameTextbox.addEventListener("keydown", searchEvent);
+	composerNameTextbox.addEventListener("keydown", searchEvent);
+	chapterNameTextbox.addEventListener("keydown", searchEvent);
+
+	// データ取得
+	getPhigrosDataFromDb();
+	getLatestVersion();
+}
+
+// 検索テキストボックス内でエンターキーを押すと検索されるイベント関数
+function searchEvent(event) {
+	if (event.key == "Enter") {
+		getPhigrosDataFromDb();
+	}
+}
+
 // 追加されているデータの中で最新のバージョンを取得しHTMLの要素を変更する関数
 async function getLatestVersion() {
 	const apiUrl = "/api/getPhigrosDb?sortBy=AddVersion&orderBy=DESC&limit=1";
