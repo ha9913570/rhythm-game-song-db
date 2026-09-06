@@ -13,9 +13,9 @@ export default {
 		// 表示件数を取得
 		const limit = url.searchParams.get("limit") ?? 9999;
 		// 検索単語を取得
-		const searchWordSongName = url.searchParams.get("songName") ?? "";
-		const searchWordComposerName = url.searchParams.get("composerName") ?? "";
-		const searchWordChapterName = url.searchParams.get("chapterName") ?? "";
+		const searchWordSongName = `%${url.searchParams.get("songName") ?? ""}%`;
+		const searchWordComposerName = `%${url.searchParams.get("composerName") ?? ""}%`;
+		const searchWordChapterName = `%${url.searchParams.get("chapterName") ?? ""}%`;
 
 		// Phigrosのデータベース
 		if (url.pathname == "/api/getPhigrosDb") {
@@ -31,15 +31,17 @@ export default {
 					)
 					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion
 					FROM Parsed
-					WHERE SongName LIKE '%${searchWordSongName}%'
-					AND ComposerName LIKE '%${searchWordComposerName}%'
-					AND ChapterName LIKE '%${searchWordChapterName}%'
+					WHERE SongName LIKE ?1
+					AND ComposerName LIKE ?2
+					AND ChapterName LIKE ?3
 					ORDER BY
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy}
 					LIMIT ${limit};
-				`).all();
+				`)
+					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName)
+					.all();
 				return Response.json(results);
 			}
 			// ソート対象が追加バージョン以外の時
@@ -47,12 +49,14 @@ export default {
 				const { results } = await env.phigros_song_db.prepare(`
 					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion
 					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
-					WHERE SongName LIKE '%${searchWordSongName}%'
-					AND ComposerName LIKE '%${searchWordComposerName}%'
-					AND ChapterName LIKE '%${searchWordChapterName}%'
+					WHERE SongName LIKE ?1
+					AND ComposerName LIKE ?2
+					AND ChapterName LIKE ?3
 					ORDER BY ${sortColumn} ${orderBy}
 					LIMIT ${limit};
-				`).all();
+				`)
+					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName)
+					.all();
 				return Response.json(results);
 			}
 		}
