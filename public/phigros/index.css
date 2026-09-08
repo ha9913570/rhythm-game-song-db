@@ -9,14 +9,40 @@ a {
 		border-collapse: separate;
 		border-color: #ddd;
 		border-spacing: 0;
+		word-break: break-word;
+
+		/* 画面サイズに応じて表のサイズを変更 */
+		@media screen and (max-width: 768px) {
+			width: 200%;
+		}
+
+		@media screen and (min-width: 769px) {
+			width: 100%;
+		}
+
+		@media screen and (min-width: 1500px) {
+			width: 80%;
+		}
+
+		/* 表の列の幅を指定 */
+		colgroup #song-name-row {
+			width: 32%;
+		}
+
+		colgroup #composer-name-row {
+			width: 30%;
+		}
+
+		colgroup #chapter-name-row {
+			width: 20%;
+		}
+
+		colgroup #add-version-row {
+			width: 18%;
+		}
 
 		tr:hover {
 			background: rgba(0, 0, 0, 0.04);
-		}
-
-		th,
-		td {
-			white-space: nowrap;
 		}
 
 		.table-header th {

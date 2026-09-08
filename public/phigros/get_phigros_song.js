@@ -54,8 +54,8 @@ async function getPhigrosDataFromDb() {
 	// テーブルを初期化
 	const tableChildren = table.children;
 	const tableChildrenLen = tableChildren.length;
-	for (let i = 1; i < tableChildrenLen; i++) {
-		table.children[1].remove();
+	for (let i = 2; i < tableChildrenLen; i++) {
+		table.children[2].remove();
 	}
 
 	// 曲データを表に追加
