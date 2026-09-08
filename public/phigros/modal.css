@@ -39,6 +39,14 @@
 
         table {
             font-size: 15px;
+
+            colgroup #header {
+                width: 43%;
+            }
+
+            colgroup #data {
+                width: 57%;
+            }
         }
 
         .ez {
