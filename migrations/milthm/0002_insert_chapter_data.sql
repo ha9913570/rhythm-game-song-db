@@ -1,0 +1,11 @@
+INSERT INTO Chapter (ChapterName) VALUES ("シングル　夢のテープ");
+INSERT INTO Chapter (ChapterName) VALUES ("紹介　天気予報");
+INSERT INTO Chapter (ChapterName) VALUES ("プロローグ　雨の音");
+INSERT INTO Chapter (ChapterName) VALUES ("コラボレーション　Rain World");
+INSERT INTO Chapter (ChapterName) VALUES ("コラボレーション　Notanote");
+INSERT INTO Chapter (ChapterName) VALUES ("第1章　甘さと苦さの両面");
+INSERT INTO Chapter (ChapterName) VALUES ("シングル　Gathering Blossoms Under Rain");
+INSERT INTO Chapter (ChapterName) VALUES ("コラボレーション　Electrode Core");
+INSERT INTO Chapter (ChapterName) VALUES ("サイドストーリー1　満開の花が待つ春");
+INSERT INTO Chapter (ChapterName) VALUES ("スペシャルコラボレーション　Void Reflection");
+INSERT INTO Chapter (ChapterName) VALUES ("第2章　君と歩む理想郷");

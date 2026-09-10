@@ -21,7 +21,14 @@
 		{
 			"binding": "phigros_song_db",
 			"database_name": "phigros-song-db",
-			"database_id": "336ba51b-c006-4de4-bd0e-585cc52abc96"
+			"database_id": "336ba51b-c006-4de4-bd0e-585cc52abc96",
+			"migrations_dir": "migrations/phigros"
+		},
+		{
+			"binding": "milthm_song_db",
+			"database_name": "milthm-song-db",
+			"database_id": "c2140393-ae40-4856-94cc-6dc182a622a3",
+			"migrations_dir": "migrations/milthm"
 		}
 	]
 	/**
