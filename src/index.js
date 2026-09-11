@@ -38,9 +38,9 @@ export default {
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy}
-					LIMIT ${limit};
+					LIMIT ?4;
 				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName)
+					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
 					.all();
 				return Response.json(results);
 			}
@@ -53,9 +53,9 @@ export default {
 					AND ComposerName LIKE ?2
 					AND ChapterName LIKE ?3
 					ORDER BY ${sortColumn} ${orderBy}
-					LIMIT ${limit};
+					LIMIT ?4;
 				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName)
+					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
 					.all();
 				return Response.json(results);
 			}
@@ -81,9 +81,9 @@ export default {
 					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
 					CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy}
-					LIMIT ${limit};
+					LIMIT ?4;
 				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName)
+					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
 					.all();
 				return Response.json(results);
 			}
@@ -96,9 +96,9 @@ export default {
 					AND ComposerName LIKE ?2
 					AND ChapterName LIKE ?3
 					ORDER BY ${sortColumn} ${orderBy}
-					LIMIT ${limit};
+					LIMIT ?4;
 				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName)
+					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
 					.all();
 				return Response.json(results);
 			}
