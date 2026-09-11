@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./modal.css">
+    <script src="./get_milthm_song.js"></script>
+    <script src="../scripts/api_url.js"></script>
+</head>
+
+<!-- 表の要素をクリックしたときに表示するモーダル -->
+<dialog id="song-detail-modal" onclick="if(event.target===this) closeSongDetail()">
+    <div id="modal-content">
+        <span id="modal-close" onclick="closeSongDetail()">×</span>
+        <h3 id="detail-song-name"></h3>
+        <table>
+            <colgroup>
+                <col id="header">
+                <col id="data">
+            </colgroup>
+            <tr>
+                <th>作曲者名</th>
+                <td id="detail-composer-name"></td>
+            </tr>
+            <tr>
+                <th>チャプター名</th>
+                <td id="detail-chapter-name"></td>
+            </tr>
+            <tr>
+                <th>難易度(<span class="dz">DZ</span>)</th>
+                <td id="detail-diff-dz"></td>
+            </tr>
+            <tr>
+                <th>難易度(<span class="sk">SK</span>)</th>
+                <td id="detail-diff-sk"></td>
+            </tr>
+            <tr>
+                <th>難易度(<span class="cb">CB</span>)</th>
+                <td id="detail-diff-cb"></td>
+            </tr>
+            <tr>
+                <th>難易度(<span class="cl">CL</span>)</th>
+                <td id="detail-diff-cl"></td>
+            </tr>
+            <tr>
+                <th>難易度(<span class="sp">SP</span>)</th>
+                <td id="detail-diff-sp"></td>
+            </tr>
+            <tr>
+                <th>ノーツ数(<span class="dz">DZ</span>)</th>
+                <td id="detail-note-dz"></td>
+            </tr>
+            <tr>
+                <th>ノーツ数(<span class="sk">SK</span>)</th>
+                <td id="detail-note-sk"></td>
+            </tr>
+            <tr>
+                <th>ノーツ数(<span class="cb">CB</span>)</th>
+                <td id="detail-note-cb"></td>
+            </tr>
+            <tr>
+                <th>ノーツ数(<span class="cl">CL</span>)</th>
+                <td id="detail-note-cl"></td>
+            </tr>
+            <tr>
+                <th>ノーツ数(<span class="sp">SP</span>)</th>
+                <td id="detail-note-sp"></td>
+            </tr>
+            <tr>
+                <th>追加バージョン</th>
+                <td id="detail-add-version"></td>
+            </tr>
+        </table>
+    </div>
+</dialog>
+
+<body>
+    <h1>Milthm</h1>
+
+    <div>バージョン<span id="latest-version"></span>までの情報を表示しています。</div>
+
+    <!-- 検索ボックス -->
+    <table>
+        <tr>
+            <th>曲名で検索</th>
+            <th>
+                <input type="text" id="search-song-name">
+            </th>
+        </tr>
+        <tr>
+            <th>作曲者名で検索</th>
+            <th>
+                <input type="text" id="search-composer-name">
+            </th>
+        </tr>
+        <tr>
+            <th>チャプター名で検索</th>
+            <th>
+                <input type="text" id="search-chapter-name">
+            </th>
+        </tr>
+    </table>
+    <input type="button" value="検索" onclick="getMilthmDataFromDb()">
+    <input type="button" value="クリア" onclick="clearSearchParam()">
+
+    <br>
+
+    <!-- 並べ替え -->
+    <table>
+        <tr>
+            <th>並べ替え対象</th>
+            <th>
+                <select id="sort-type" onChange="getMilthmDataFromDb()">
+                    <option value="song-name">曲名</option>
+                    <option value="composer-name">作曲者名</option>
+                    <option value="chapter-name">チャプター名</option>
+                    <option value="add-version" selected>追加バージョン</option>
+                </select>
+            </th>
+            <th>順番</th>
+            <th>
+                <select id="order-by" onChange="getMilthmDataFromDb()">
+                    <option value="asc" selected>昇順</option>
+                    <option value="desc">降順</option>
+                </select>
+            </th>
+        </tr>
+    </table>
+
+    <br>
+
+    <p><span id="column-num"></span>件のデータを表示しています。</p>
+    <p>クリックすることで詳細を表示できます。</p>
+
+    <!-- データベースのデータ -->
+    <div id="song-list-wrapper">
+        <table id="song-list" , border="1">
+            <colgroup>
+                <col id="song-name-row">
+                <col id="composer-name-row">
+                <col id="chapter-name-row">
+                <col id="add-version-row">
+            </colgroup>
+            <tr class="table-header">
+                <th>曲名</th>
+                <th>作曲者名</th>
+                <th>チャプター名</th>
+                <th>追加バージョン</th>
+            </tr>
+        </table>
+    </div>
+
+    <p>このサイトは<a href="https://wikiwiki.jp/milthm/">Milthm Wiki</a>を参考にデータを作成・表示しています。</p>
+</body>
+
+</html>
