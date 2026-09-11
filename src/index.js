@@ -17,93 +17,56 @@ export default {
 		const searchWordComposerName = `%${url.searchParams.get("composerName") ?? ""}%`;
 		const searchWordChapterName = `%${url.searchParams.get("chapterName") ?? ""}%`;
 
-		// Phigrosのデータベース
+		let db;
+		let selectColumn;
+
 		if (url.pathname == "/api/getPhigrosDb") {
-			// ソート対象が追加バージョンの時
-			if (sortColumn == "AddVersion") {
-				// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
-				const { results } = await env.phigros_song_db.prepare(`
-					WITH Parsed AS (
-						SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion,
-						INSTR(AddVersion, '.') AS Dot1,
-						INSTR(AddVersion, '.') + INSTR(SUBSTR(AddVersion, INSTR(AddVersion, '.') + 1), '.') AS Dot2
-						FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
-					)
-					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion
-					FROM Parsed
-					WHERE SongName LIKE ?1
-					AND ComposerName LIKE ?2
-					AND ChapterName LIKE ?3
-					ORDER BY
-					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
-					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
-					CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy}
-					LIMIT ?4;
-				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
-					.all();
-				return Response.json(results);
-			}
-			// ソート対象が追加バージョン以外の時
-			else {
-				const { results } = await env.phigros_song_db.prepare(`
-					SELECT SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion
-					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
-					WHERE SongName LIKE ?1
-					AND ComposerName LIKE ?2
-					AND ChapterName LIKE ?3
-					ORDER BY ${sortColumn} ${orderBy}
-					LIMIT ?4;
-				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
-					.all();
-				return Response.json(results);
-			}
-		}
-		// Milthmのデータベース
-		else if (url.pathname == "/api/getMilthmDb") {
-			// ソート対象が追加バージョンの時
-			if (sortColumn == "AddVersion") {
-				// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
-				const { results } = await env.milthm_song_db.prepare(`
-					WITH Parsed AS (
-						SELECT SongName, ComposerName, ChapterName, DiffDZ, DiffSK, DiffCB, DiffCL, DiffSP, NoteDZ, NoteSK, NoteCB, NoteCL, NoteSP, AddVersion,
-						INSTR(AddVersion, '.') AS Dot1,
-						INSTR(AddVersion, '.') + INSTR(SUBSTR(AddVersion, INSTR(AddVersion, '.') + 1), '.') AS Dot2
-						FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
-					)
-					SELECT SongName, ComposerName, ChapterName, DiffDZ, DiffSK, DiffCB, DiffCL, DiffSP, NoteDZ, NoteSK, NoteCB, NoteCL, NoteSP, AddVersion
-					FROM Parsed
-					WHERE SongName LIKE ?1
-					AND ComposerName LIKE ?2
-					AND ChapterName LIKE ?3
-					ORDER BY
-					CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
-					CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
-					CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy}
-					LIMIT ?4;
-				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
-					.all();
-				return Response.json(results);
-			}
-			// ソート対象が追加バージョン以外の時
-			else {
-				const { results } = await env.milthm_song_db.prepare(`
-					SELECT SongName, ComposerName, ChapterName, DiffDZ, DiffSK, DiffCB, DiffCL, DiffSP, NoteDZ, NoteSK, NoteCB, NoteCL, NoteSP, AddVersion
-					From Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
-					WHERE SongName LIKE ?1
-					AND ComposerName LIKE ?2
-					AND ChapterName LIKE ?3
-					ORDER BY ${sortColumn} ${orderBy}
-					LIMIT ?4;
-				`)
-					.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
-					.all();
-				return Response.json(results);
-			}
+			db = env.phigros_song_db;
+			selectColumn = "SongName, ComposerName, ChapterName, DiffEZ, DiffHD, DiffIN, DiffAT, NoteEZ, NoteHD, NoteIN, NoteAT, Bpm, SongLength, AddVersion";
+		} else if (url.pathname == "/api/getMilthmDb") {
+			db = env.milthm_song_db;
+			selectColumn = "SongName, ComposerName, ChapterName, DiffDZ, DiffSK, DiffCB, DiffCL, DiffSP, NoteDZ, NoteSK, NoteCB, NoteCL, NoteSP, AddVersion";
 		}
 
-		return env.ASSETS.fetch(request);
+		// ソート対象が追加バージョンの時
+		if (sortColumn == "AddVersion") {
+			// .の位置をDot1,Dot2に格納し、それらを使って.と.の間の文字を整数値として扱い並べ替える
+			const { results } = await db.prepare(`
+				WITH Parsed AS (
+					SELECT ${selectColumn},
+					INSTR(AddVersion, '.') AS Dot1,
+					INSTR(AddVersion, '.') + INSTR(SUBSTR(AddVersion, INSTR(AddVersion, '.') + 1), '.') AS Dot2
+					FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+				)
+				SELECT ${selectColumn}
+				FROM Parsed
+				WHERE SongName LIKE ?1
+				AND ComposerName LIKE ?2
+				AND ChapterName LIKE ?3
+				ORDER BY
+				CAST(SUBSTR(AddVersion, 1, Dot1 - 1) AS INTEGER) ${orderBy},
+				CAST(SUBSTR(AddVersion, dot1 + 1, dot2 - dot1 - 1) AS INTEGER) ${orderBy},
+				CAST(SUBSTR(AddVersion, dot2 + 1) AS INTEGER) ${orderBy}
+				LIMIT ?4;
+			`)
+				.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
+				.all();
+			return Response.json(results);
+		}
+		// ソート対象が追加バージョン以外の時
+		else {
+			const { results } = await db.prepare(`
+				SELECT ${selectColumn}
+				FROM Song NATURAL JOIN Composer NATURAL JOIN Chapter NATURAL JOIN Chart
+				WHERE SongName LIKE ?1
+				AND ComposerName LIKE ?2
+				AND ChapterName LIKE ?3
+				ORDER BY ${sortColumn} ${orderBy}
+				LIMIT ?4;
+			`)
+				.bind(searchWordSongName, searchWordComposerName, searchWordChapterName, limit)
+				.all();
+			return Response.json(results);
+		}
 	},
 };
