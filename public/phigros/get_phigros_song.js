@@ -78,8 +78,3 @@ function showSongDetail(item) {
 
 	document.getElementById("song-detail-modal").style.display = "flex";
 }
-
-// 詳細モーダルを閉じる関数
-function closeSongDetail() {
-	document.getElementById("song-detail-modal").style.display = "none";
-}

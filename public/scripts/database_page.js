@@ -113,3 +113,8 @@ function giveEventForTextbox() {
     composerNameTextbox.addEventListener("keydown", searchEvent);
     chapterNameTextbox.addEventListener("keydown", searchEvent);
 }
+
+// 詳細モーダルを閉じる関数
+function closeSongDetail() {
+    document.getElementById("song-detail-modal").style.display = "none";
+}
