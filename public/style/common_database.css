@@ -2,6 +2,10 @@ a {
     color: #0000ff;
 }
 
+.warning {
+    color: #ff0000;
+}
+
 #song-list-wrapper {
     overflow-x: auto;
 
