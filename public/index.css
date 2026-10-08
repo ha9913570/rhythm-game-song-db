@@ -1,12 +1,18 @@
 a {
     color: blue;
+    text-decoration: none;
 }
 
 #phigros {
     font-family: "Aldrich";
+    font-weight: 700;
 }
 
 #milthm {
     font-family: "Lato";
     font-weight: 700;
+}
+
+.game-title {
+    font-size: 32px;
 }
