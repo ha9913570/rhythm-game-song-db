@@ -2,6 +2,12 @@ a {
     color: blue;
 }
 
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
 #phigros {
     font-family: "Aldrich";
     font-weight: 700;
