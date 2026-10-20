@@ -2,6 +2,10 @@ export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 
+		if (url.pathname !== "/api/getPhigrosDb" && url.pathname !== "/api/getMilthmDb") {
+			return env.ASSETS.fetch(request);
+		}
+
 		// ソート対象リスト
 		const SORT_COLUMNS = new Set(["SongName", "ComposerName", "ChapterName", "Bpm", "SongLength"]);
 
