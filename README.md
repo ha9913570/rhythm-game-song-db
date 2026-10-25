@@ -5,7 +5,7 @@
 現在はPhigrosとMilthmの2つですが、今後も追加していく予定です。  
 
 以下のリンクからサイトに飛べます。  
-https://rhythm-game-song-db.hrt356.workers.dev/
+https://rhythm-game-song-db.ha910.workers.dev/
 
 ## 技術スタック
 - HTML/CSS
